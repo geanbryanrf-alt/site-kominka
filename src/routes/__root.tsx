@@ -133,6 +133,20 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="pt-BR">
       <head>
         <HeadContent />
+        {/*
+         * As animações de entrada partem de um estado escondido (texto
+         * transparente, foto atrás da cortina) e só são liberadas por
+         * JavaScript. Sem ele, metade da página ficaria invisível — então
+         * neutralizamos o estado inicial e a página nasce montada.
+         */}
+        <noscript>
+          <style>{`
+            .reveal { opacity: 1 !important; transform: none !important; }
+            .title-reveal { clip-path: none !important; transform: none !important; }
+            .media-reveal::after { display: none !important; }
+            .media-shot { transform: none !important; filter: none !important; }
+          `}</style>
+        </noscript>
       </head>
       <body>
         {children}

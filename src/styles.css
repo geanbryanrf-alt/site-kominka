@@ -228,6 +228,236 @@
   }
 }
 
+/* ---------------------------------------------------------------
+ * Camada cinematográfica
+ *
+ * Quatro ideias, aplicadas com parcimônia:
+ *   1. profundidade  — vinheta, parallax, grão em movimento
+ *   2. entrada       — cortina e assentamento de escala nas fotos
+ *   3. ritmo         — títulos revelados por wipe vertical
+ *   4. matéria       — brilho que atravessa botões, ensō em deriva
+ *
+ * Tudo cai para estático em prefers-reduced-motion (bloco no fim).
+ * ------------------------------------------------------------- */
+
+@keyframes ken-burns {
+  from {
+    transform: scale(1.03) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.13) translate3d(-1.5%, -2%, 0);
+  }
+}
+
+@keyframes grain-shift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  20% {
+    transform: translate3d(-3%, 2%, 0);
+  }
+  40% {
+    transform: translate3d(2%, -3%, 0);
+  }
+  60% {
+    transform: translate3d(-2%, -2%, 0);
+  }
+  80% {
+    transform: translate3d(3%, 1%, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes enso-drift {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes cue-fall {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translateY(10px);
+    opacity: 0.9;
+  }
+}
+
+@keyframes halo-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+  70%,
+  100% {
+    transform: scale(1.55);
+    opacity: 0;
+  }
+}
+
+@keyframes lightbox-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Vinheta de lente — escurece os cantos e joga o olho pro centro.
+   Usa ::before para não colidir com o ::after do paper-grain. */
+@utility vignette {
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(120% 85% at 50% 42%, transparent 42%, rgba(6, 20, 18, 0.6) 100%);
+  }
+}
+
+/* Grão de filme com deriva lenta — só nas seções escuras. */
+@utility film-grain {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -12%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.16;
+    mix-blend-mode: overlay;
+    animation: grain-shift 7s steps(5) infinite;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
+  }
+}
+
+/* Ken Burns — deriva contínua de escala, o truque de documentário. */
+@utility ken-burns {
+  animation: ken-burns 30s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* ---- Revelação de mídia: cortina + assentamento de escala ----
+   Três camadas empilhadas para que cortina, parallax e escala
+   não disputem a mesma propriedade transform:
+     .media-reveal   -> a cortina (::after)
+     .media-plane    -> o parallax (transform inline, via JS)
+     .media-shot     -> a escala de entrada (transição CSS)         */
+
+@utility media-reveal {
+  position: relative;
+  overflow: hidden;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    background: var(--curtain, #ebe3d6);
+    transform: translateX(0);
+    transition: transform 1100ms cubic-bezier(0.76, 0, 0.24, 1);
+  }
+}
+
+@utility media-reveal-in {
+  &::after {
+    transform: translateX(101%);
+  }
+}
+
+/* Plano de parallax — mais alto que o quadro, para a translação
+   nunca expor uma faixa vazia nas bordas. */
+@utility media-plane {
+  position: absolute;
+  top: -8%;
+  left: 0;
+  right: 0;
+  height: 116%;
+  will-change: transform;
+}
+
+@utility media-shot {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  transform: scale(1.12);
+  filter: brightness(0.94) saturate(0.94);
+  transition:
+    transform 1500ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 1500ms ease;
+}
+
+.media-reveal-in .media-shot {
+  transform: scale(1);
+  filter: brightness(1) saturate(1);
+}
+
+/* Título revelado por wipe vertical, como uma cartela de abertura. */
+@utility title-reveal {
+  clip-path: inset(0 0 108% 0);
+  transform: translateY(0.18em);
+  transition:
+    clip-path 1000ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1000ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: clip-path, transform;
+}
+
+@utility title-reveal-in {
+  clip-path: inset(0 0 -12% 0);
+  transform: translateY(0);
+}
+
+/* Brilho que atravessa o botão no hover. Só vale em fundo escuro. */
+@utility shine {
+  position: relative;
+  overflow: hidden;
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -160%;
+    width: 55%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    transform: skewX(-20deg);
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+    transition: left 900ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  &:hover::after {
+    left: 160%;
+  }
+}
+
+@utility enso-spin {
+  animation: enso-drift 120s linear infinite;
+  transform-origin: 50% 50%;
+}
+
+@utility scroll-cue {
+  animation: cue-fall 2.4s ease-in-out infinite;
+}
+
+@utility lightbox-pop {
+  animation: lightbox-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@utility halo {
+  animation: halo-pulse 3.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal {
     opacity: 1 !important;
@@ -237,6 +467,33 @@
   .btn-lift:hover,
   .img-zoom:hover {
     transform: none !important;
+  }
+  .title-reveal {
+    clip-path: none !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .media-reveal::after {
+    display: none !important;
+  }
+  .media-shot {
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+  .ken-burns,
+  .film-grain::after,
+  .enso-spin,
+  .scroll-cue,
+  .lightbox-pop,
+  .halo {
+    animation: none !important;
+  }
+  .halo {
+    display: none !important;
+  }
+  .shine::after {
+    display: none !important;
   }
 }
 

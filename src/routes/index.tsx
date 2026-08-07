@@ -19,6 +19,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { useReveal } from "@/hooks/use-reveal";
+import { useParallax } from "@/hooks/use-parallax";
 /**
  * As fotos ficam em `public/photos` e são referenciadas por URL absoluta.
  * Servidas como arquivos estáticos, funcionam igual em dev, build e SSR —
@@ -71,6 +72,7 @@ export const Route = createFileRoute("/")({
 function KominkaHome() {
   return (
     <div className="min-h-screen bg-kominka-cream font-sans text-kominka-ink antialiased">
+      <ScrollProgress />
       <Header />
       <main>
         <Hero />
@@ -113,7 +115,11 @@ function Header() {
           : "border-b border-transparent bg-kominka-cream/60 backdrop-blur-sm"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3 lg:px-8">
+      <div
+        className={`mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 transition-[padding] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] lg:px-8 ${
+          scrolled ? "py-2" : "py-4"
+        }`}
+      >
         <a href="#inicio" className="flex items-center gap-3 shrink-0 group">
           <img
             src={logoImg}
@@ -143,9 +149,9 @@ function Header() {
             href={WA_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-lift hidden sm:inline-flex items-center gap-2 rounded-full bg-kominka-green px-5 py-2.5 text-sm font-medium text-kominka-cream hover:bg-kominka-green-deep"
+            className="shine btn-lift hidden sm:inline-flex items-center gap-2 rounded-full bg-kominka-green px-5 py-2.5 text-sm font-medium text-kominka-cream hover:bg-kominka-green-deep"
           >
-            Aula experimental
+            <span className="relative z-10">Aula experimental</span>
           </a>
           <button
             onClick={() => setOpen((v) => !v)}
@@ -192,34 +198,19 @@ function Hero() {
   return (
     <section
       id="inicio"
-      className="paper-grain relative overflow-hidden bg-kominka-green-deep text-kominka-cream"
+      className="paper-grain film-grain vignette relative overflow-hidden bg-kominka-green-deep text-kominka-cream"
     >
       {/* Fundo textural + overlay editorial */}
-      <div className="absolute inset-0 opacity-[0.14]" aria-hidden>
-        <div
-          className="h-full w-full"
-          style={{
-            backgroundImage:
-              "radial-gradient(ellipse at 30% 20%, rgba(201,185,154,0.35), transparent 55%), radial-gradient(ellipse at 80% 80%, rgba(139,111,78,0.35), transparent 60%), repeating-linear-gradient(90deg, rgba(245,240,234,0.04) 0 2px, transparent 2px 8px)",
-          }}
-        />
-      </div>
-      <div
-        className="absolute inset-0 bg-linear-to-b from-kominka-green-deep/50 via-transparent to-kominka-green-deep"
-        aria-hidden
-      />
-      <div
-        className="absolute inset-0 bg-linear-to-r from-kominka-green-deep/60 via-transparent to-transparent"
-        aria-hidden
-      />
+      <HeroBackdrop />
 
       {/* Ensō decorativo — só desktop */}
       <Enso
         size={220}
+        spin
         className="pointer-events-none absolute -right-16 top-16 hidden text-kominka-sand/25 lg:block"
       />
 
-      <div className="relative mx-auto grid max-w-7xl gap-12 px-5 py-20 md:py-28 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:px-8 lg:py-32">
+      <div className="relative z-10 mx-auto grid max-w-7xl gap-12 px-5 py-20 md:py-28 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:px-8 lg:py-32">
         <Reveal>
           <span className="inline-flex items-center gap-2 rounded-full border border-kominka-sand/40 bg-kominka-cream/5 px-4 py-1.5 text-[10px] tracking-[0.28em] uppercase text-kominka-sand backdrop-blur-sm">
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-kominka-sand" />
@@ -237,15 +228,15 @@ function Hero() {
 
           {/* Foto abaixo do título — apenas mobile/tablet */}
           <div className="relative mt-8 lg:hidden">
-            <div className="relative aspect-4/5 w-full max-w-sm mx-auto overflow-hidden rounded-sm border border-kominka-sand/30 bg-kominka-green shadow-2xl">
-              <img
-                src={heroKarate}
-                alt="Alunos e senseis do Kominka Dojo reunidos no dojo após o treino"
-                className="img-zoom h-full w-full object-cover"
-                loading="eager"
-                fetchPriority="high"
-              />
-            </div>
+            <CinematicImage
+              src={heroKarate}
+              alt="Alunos e senseis do Kominka Dojo reunidos no dojo após o treino"
+              className="aspect-4/5 w-full max-w-sm mx-auto rounded-sm border border-kominka-sand/30 bg-kominka-green shadow-2xl"
+              curtain="#0F2A26"
+              strength={18}
+              priority
+              drift
+            />
           </div>
 
           <p className="mt-8 max-w-xl font-serif text-xl leading-relaxed text-kominka-cream/85 md:text-2xl">
@@ -277,15 +268,15 @@ function Hero() {
 
         {/* Foto real dos senseis — apenas desktop */}
         <Reveal delay={200} className="relative hidden lg:block">
-          <div className="relative aspect-4/5 w-full overflow-hidden rounded-sm border border-kominka-sand/30 bg-kominka-green shadow-2xl">
-            <img
-              src={heroKarate}
-              alt="Alunos e senseis do Kominka Dojo reunidos no dojo após o treino"
-              className="img-zoom h-full w-full object-cover"
-              loading="eager"
-              fetchPriority="high"
-            />
-          </div>
+          <CinematicImage
+            src={heroKarate}
+            alt="Alunos e senseis do Kominka Dojo reunidos no dojo após o treino"
+            className="aspect-4/5 w-full rounded-sm border border-kominka-sand/30 bg-kominka-green shadow-2xl"
+            curtain="#0F2A26"
+            strength={22}
+            priority
+            drift
+          />
           <div
             className="absolute -bottom-4 -left-4 h-24 w-24 border-l-2 border-b-2 border-kominka-sand"
             aria-hidden
@@ -296,7 +287,48 @@ function Hero() {
           />
         </Reveal>
       </div>
+
+      {/* Convite discreto para rolar */}
+      <a
+        href="#dojo"
+        aria-label="Rolar para a próxima seção"
+        className="absolute inset-x-0 bottom-6 z-10 mx-auto hidden w-8 flex-col items-center gap-2 text-kominka-sand/70 transition-colors hover:text-kominka-sand lg:flex"
+      >
+        <span className="text-[9px] tracking-[0.3em] uppercase [writing-mode:vertical-rl]">
+          Role
+        </span>
+        <span className="scroll-cue block h-8 w-px bg-linear-to-b from-kominka-sand to-transparent" />
+      </a>
     </section>
+  );
+}
+
+/**
+ * Camadas de fundo do hero. Cada uma se move em ritmo próprio na rolagem — o
+ * brilho difuso mais rápido que os gradientes de vinheta — dando ao topo uma
+ * profundidade que uma imagem chapada não tem.
+ */
+function HeroBackdrop() {
+  const glowRef = useParallax<HTMLDivElement>(60);
+  const washRef = useParallax<HTMLDivElement>(28);
+
+  return (
+    <>
+      <div className="absolute inset-0 opacity-[0.14]" aria-hidden>
+        <div
+          ref={glowRef}
+          className="h-full w-full"
+          style={{
+            backgroundImage:
+              "radial-gradient(ellipse at 30% 20%, rgba(201,185,154,0.35), transparent 55%), radial-gradient(ellipse at 80% 80%, rgba(139,111,78,0.35), transparent 60%), repeating-linear-gradient(90deg, rgba(245,240,234,0.04) 0 2px, transparent 2px 8px)",
+          }}
+        />
+      </div>
+      <div ref={washRef} className="absolute inset-0" aria-hidden>
+        <div className="absolute inset-0 bg-linear-to-b from-kominka-green-deep/50 via-transparent to-kominka-green-deep" />
+        <div className="absolute inset-0 bg-linear-to-r from-kominka-green-deep/60 via-transparent to-transparent" />
+      </div>
+    </>
   );
 }
 
@@ -314,31 +346,27 @@ function ODojo() {
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div className="hidden lg:block lg:order-1">
-            <div className="relative aspect-4/3 w-full overflow-hidden rounded-sm border border-kominka-green/15 shadow-xl">
-              <img
-                src={dojoFachada}
-                alt="Fachada de madeira do Kominka Dojo, réplica de uma casa tradicional de Okinawa"
-                className="img-zoom h-full w-full object-cover"
-                loading="lazy"
-              />
-            </div>
+            <CinematicImage
+              src={dojoFachada}
+              alt="Fachada de madeira do Kominka Dojo, réplica de uma casa tradicional de Okinawa"
+              className="aspect-4/3 w-full rounded-sm border border-kominka-green/15 shadow-xl"
+              curtain="#F5F0EA"
+            />
           </div>
           <div className="lg:order-2">
             <SectionKicker>O espaço</SectionKicker>
-            <h2 className="mt-4 font-serif text-3xl leading-tight text-kominka-green md:text-5xl">
+            <RevealTitle className="mt-4 font-serif text-3xl leading-tight text-kominka-green md:text-5xl">
               Um dojo inspirado na tradição de Okinawa
-            </h2>
+            </RevealTitle>
 
             {/* Foto abaixo do título — apenas mobile/tablet */}
             <div className="mt-8 lg:hidden">
-              <div className="relative aspect-4/3 w-full overflow-hidden rounded-sm border border-kominka-green/15 shadow-xl">
-                <img
-                  src={dojoFachada}
-                  alt="Fachada de madeira do Kominka Dojo, réplica de uma casa tradicional de Okinawa"
-                  className="img-zoom h-full w-full object-cover"
-                  loading="lazy"
-                />
-              </div>
+              <CinematicImage
+                src={dojoFachada}
+                alt="Fachada de madeira do Kominka Dojo, réplica de uma casa tradicional de Okinawa"
+                className="aspect-4/3 w-full rounded-sm border border-kominka-green/15 shadow-xl"
+                curtain="#F5F0EA"
+              />
             </div>
 
             <p className="mt-6 text-[15px] leading-relaxed text-kominka-ink/80 md:text-base">
@@ -436,30 +464,24 @@ function IOGKF() {
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div className="hidden lg:block">
-            <div className="relative aspect-4/5 w-full overflow-hidden rounded-sm border border-kominka-green/15 shadow-xl">
-              <img
-                src={iogkfImg}
-                alt="Encontro da IOGKF Brasil reunindo praticantes de Goju-Ryu de Okinawa"
-                className="img-zoom h-full w-full object-cover"
-                loading="lazy"
-              />
-            </div>
+            <CinematicImage
+              src={iogkfImg}
+              alt="Encontro da IOGKF Brasil reunindo praticantes de Goju-Ryu de Okinawa"
+              className="aspect-4/5 w-full rounded-sm border border-kominka-green/15 shadow-xl"
+            />
           </div>
           <div>
             <SectionKicker>Honbu Dojo</SectionKicker>
-            <h2 className="mt-4 font-serif text-3xl leading-tight text-kominka-green md:text-5xl">
+            <RevealTitle className="mt-4 font-serif text-3xl leading-tight text-kominka-green md:text-5xl">
               Honbu Dojo da IOGKF Brasil
-            </h2>
+            </RevealTitle>
 
             <div className="mt-8 lg:hidden">
-              <div className="relative aspect-4/5 w-full overflow-hidden rounded-sm border border-kominka-green/15 shadow-xl">
-                <img
-                  src={iogkfImg}
-                  alt="Encontro da IOGKF Brasil reunindo praticantes de Goju-Ryu de Okinawa"
-                  className="img-zoom h-full w-full object-cover"
-                  loading="lazy"
-                />
-              </div>
+              <CinematicImage
+                src={iogkfImg}
+                alt="Encontro da IOGKF Brasil reunindo praticantes de Goju-Ryu de Okinawa"
+                className="aspect-4/5 w-full rounded-sm border border-kominka-green/15 shadow-xl"
+              />
             </div>
 
             <p className="mt-6 text-[15px] leading-relaxed text-kominka-ink/80 md:text-base">
@@ -477,23 +499,27 @@ function IOGKF() {
               forma fiel às suas raízes.
             </p>
 
-            <div className="mt-10 flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:gap-8">
-              <img
-                src={iogkfLogo}
-                alt="Logomarca da IOGKF Brasil"
-                className="h-28 w-auto shrink-0 md:h-32"
-                loading="lazy"
-              />
-              <a
-                href={IOGKF_SITE}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 border border-kominka-green bg-kominka-green px-6 py-3 text-xs tracking-[0.2em] uppercase text-kominka-cream transition hover:bg-transparent hover:text-kominka-green"
-              >
-                Saiba mais sobre a IOGKF Brasil
-                <span aria-hidden="true">→</span>
-              </a>
-            </div>
+            <Reveal delay={120}>
+              <div className="mt-10 flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:gap-8">
+                <img
+                  src={iogkfLogo}
+                  alt="Logomarca da IOGKF Brasil"
+                  className="h-28 w-auto shrink-0 drop-shadow-[0_8px_20px_rgba(23,59,53,0.18)] transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-105 md:h-32"
+                  loading="lazy"
+                />
+                <a
+                  href={IOGKF_SITE}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="shine btn-lift inline-flex items-center gap-3 border border-kominka-green bg-kominka-green px-6 py-3 text-xs tracking-[0.2em] uppercase text-kominka-cream hover:bg-kominka-green-deep"
+                >
+                  <span className="relative z-10">Saiba mais sobre a IOGKF Brasil</span>
+                  <span className="relative z-10" aria-hidden="true">
+                    →
+                  </span>
+                </a>
+              </div>
+            </Reveal>
           </div>
         </div>
       </div>
@@ -508,9 +534,9 @@ function NaMidia() {
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="max-w-2xl">
           <SectionKicker>Na Mídia</SectionKicker>
-          <h2 className="mt-4 font-serif text-3xl leading-tight text-kominka-green md:text-5xl">
+          <RevealTitle className="mt-4 font-serif text-3xl leading-tight text-kominka-green md:text-5xl">
             Kominka Dojo na mídia
-          </h2>
+          </RevealTitle>
           <p className="mt-5 text-[15px] leading-relaxed text-kominka-ink/75 md:text-base">
             Uma história de tradição, cultura e dedicação reconhecida pela imprensa capixaba.
           </p>
@@ -543,18 +569,20 @@ function NaMidia() {
               href="https://www.folhavitoria.com.br/esportes/karate-kid-em-vitoria-casal-constroi-casa-japonesa-pra-ensinar-carate-em-vitoria/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPOTM2NjE5NzQzMzkyNDU5AAGnObmbHWW2TtcjdCpjdeIKnK3JPunQ50O4M15yTexMCMQmfilHJJV5ATXBq9A_aem_Iz8_5M-eyPs2ioKB9A80gg"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8 inline-flex items-center gap-3 border border-kominka-green bg-kominka-green px-6 py-3 text-xs tracking-[0.2em] uppercase text-kominka-cream transition hover:bg-transparent hover:text-kominka-green"
+              className="shine btn-lift mt-8 inline-flex items-center gap-3 border border-kominka-green bg-kominka-green px-6 py-3 text-xs tracking-[0.2em] uppercase text-kominka-cream hover:bg-kominka-green-deep"
             >
-              Ler reportagem na Folha Vitória
-              <span aria-hidden="true">→</span>
+              <span className="relative z-10">Ler reportagem na Folha Vitória</span>
+              <span className="relative z-10" aria-hidden="true">
+                →
+              </span>
             </a>
           </div>
           <div className="order-1 lg:order-2">
-            <img
+            <CinematicImage
               src={dojoMidia}
               alt="Fachada do Kominka Dojo durante o dia, como retratada na reportagem da Folha Vitória"
-              className="h-64 w-full object-cover sm:h-80 lg:h-full"
-              loading="lazy"
+              className="h-64 w-full sm:h-80 lg:h-full"
+              curtain="#EBE3D6"
             />
           </div>
         </article>
@@ -628,42 +656,41 @@ function Horarios() {
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="max-w-3xl">
           <SectionKicker>Turmas</SectionKicker>
-          <h2 className="mt-4 font-serif text-3xl leading-tight text-kominka-green md:text-5xl">
+          <RevealTitle className="mt-4 font-serif text-3xl leading-tight text-kominka-green md:text-5xl">
             Horários das aulas
-          </h2>
+          </RevealTitle>
         </div>
 
         <div className="mt-12 grid gap-5 md:grid-cols-2">
-          {turmas.map((t) => (
-            <article
-              key={t.tag}
-              className="group flex flex-col justify-between border border-kominka-green/15 bg-kominka-cream p-8 transition-colors hover:border-kominka-green/40"
-            >
-              <div>
-                <div className="text-[10px] tracking-[0.25em] uppercase text-kominka-green/70">
-                  {t.tag}
-                </div>
-                <h3 className="mt-2 font-serif text-2xl text-kominka-green md:text-3xl">
-                  {t.titulo}
-                </h3>
-                <div className="mt-4 h-px w-10 bg-kominka-green/30" />
-                <dl className="mt-5 grid grid-cols-1 gap-3 text-sm sm:grid-cols-2">
-                  {t.idade && <Info label="Idade" value={t.idade} />}
-                  {t.valor && <Info label="Investimento" value={t.valor} />}
-                  <div className="sm:col-span-2">
-                    <dt className="text-[10px] tracking-[0.2em] uppercase text-kominka-ink/50">
-                      Dias e horários
-                    </dt>
-                    <dd className="mt-1 space-y-0.5 text-kominka-ink">
-                      {t.schedule.map((s) => (
-                        <div key={s}>{s}</div>
-                      ))}
-                    </dd>
+          {turmas.map((t, i) => (
+            <Reveal key={t.tag} delay={i * 90} className="flex">
+              <article className="group flex flex-1 flex-col justify-between border border-kominka-green/15 bg-kominka-cream p-8 transition-[transform,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-kominka-green/40 hover:shadow-[0_24px_50px_-30px_rgba(23,59,53,0.45)]">
+                <div>
+                  <div className="text-[10px] tracking-[0.25em] uppercase text-kominka-green/70">
+                    {t.tag}
                   </div>
-                </dl>
-                {t.nota && <p className="mt-5 text-sm">{t.nota}</p>}
-              </div>
-            </article>
+                  <h3 className="mt-2 font-serif text-2xl text-kominka-green md:text-3xl">
+                    {t.titulo}
+                  </h3>
+                  <div className="mt-4 h-px w-10 bg-kominka-green/30" />
+                  <dl className="mt-5 grid grid-cols-1 gap-3 text-sm sm:grid-cols-2">
+                    {t.idade && <Info label="Idade" value={t.idade} />}
+                    {t.valor && <Info label="Investimento" value={t.valor} />}
+                    <div className="sm:col-span-2">
+                      <dt className="text-[10px] tracking-[0.2em] uppercase text-kominka-ink/50">
+                        Dias e horários
+                      </dt>
+                      <dd className="mt-1 space-y-0.5 text-kominka-ink">
+                        {t.schedule.map((s) => (
+                          <div key={s}>{s}</div>
+                        ))}
+                      </dd>
+                    </div>
+                  </dl>
+                  {t.nota && <p className="mt-5 text-sm">{t.nota}</p>}
+                </div>
+              </article>
+            </Reveal>
           ))}
         </div>
 
@@ -677,9 +704,9 @@ function Horarios() {
             href={WA_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-lift inline-flex items-center gap-2 rounded-full bg-kominka-green px-7 py-4 text-sm font-medium text-kominka-cream hover:bg-kominka-green-deep"
+            className="shine btn-lift inline-flex items-center gap-2 rounded-full bg-kominka-green px-7 py-4 text-sm font-medium text-kominka-cream hover:bg-kominka-green-deep"
           >
-            Quero agendar minha aula experimental
+            <span className="relative z-10">Quero agendar minha aula experimental</span>
           </a>
         </div>
       </div>
@@ -704,9 +731,9 @@ function Zazen() {
         <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center">
           <div>
             <SectionKicker>Zazen</SectionKicker>
-            <h2 className="mt-4 font-serif text-3xl leading-tight text-kominka-green md:text-5xl">
+            <RevealTitle className="mt-4 font-serif text-3xl leading-tight text-kominka-green md:text-5xl">
               Meditação aberta à comunidade
-            </h2>
+            </RevealTitle>
             <p className="mt-6 text-[15px] leading-relaxed text-kominka-ink/80 md:text-base">
               Quinzenalmente, o Kominka Dojo abre suas portas como espaço para meditação, com
               entrada franca. A prática segue a linha da meditação Zen Budista, em postura de zazen
@@ -732,14 +759,12 @@ function Zazen() {
               Perguntar sobre a meditação →
             </a>
           </div>
-          <figure className="relative overflow-hidden rounded-sm ring-1 ring-kominka-green/10 shadow-[0_20px_60px_-30px_rgba(23,59,53,0.35)]">
-            <img
-              src={zazenImg}
-              alt="Praticantes em postura de zazen no Kominka Dojo"
-              loading="lazy"
-              className="img-zoom aspect-square w-full object-cover"
-            />
-          </figure>
+          <CinematicImage
+            src={zazenImg}
+            alt="Praticantes em postura de zazen no Kominka Dojo"
+            className="aspect-square w-full rounded-sm ring-1 ring-kominka-green/10 shadow-[0_20px_60px_-30px_rgba(23,59,53,0.35)]"
+            curtain="#F5F0EA"
+          />
         </div>
       </div>
     </section>
@@ -754,9 +779,9 @@ function Shiatsu() {
         <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center">
           <div>
             <SectionKicker>Shiatsu</SectionKicker>
-            <h2 className="mt-4 font-serif text-3xl leading-tight text-kominka-green md:text-5xl">
+            <RevealTitle className="mt-4 font-serif text-3xl leading-tight text-kominka-green md:text-5xl">
               Equilíbrio através do toque
-            </h2>
+            </RevealTitle>
             <p className="mt-6 text-[15px] leading-relaxed text-kominka-ink/80 md:text-base">
               O Kominka Dojo também oferece atendimento de Shiatsu, uma terapia corporal tradicional
               japonesa que utiliza a pressão dos dedos, mãos e polegares sobre pontos e regiões
@@ -780,14 +805,12 @@ function Shiatsu() {
               Agendar Shiatsu pelo WhatsApp →
             </a>
           </div>
-          <figure className="relative overflow-hidden rounded-sm ring-1 ring-kominka-green/10 shadow-[0_20px_60px_-30px_rgba(23,59,53,0.35)]">
-            <img
-              src={shiatsuImg}
-              alt="Sala de atendimento de Shiatsu no Kominka Dojo"
-              loading="lazy"
-              className="img-zoom aspect-4/5 w-full object-cover"
-            />
-          </figure>
+          <CinematicImage
+            src={shiatsuImg}
+            alt="Sala de atendimento de Shiatsu no Kominka Dojo"
+            className="aspect-4/5 w-full rounded-sm ring-1 ring-kominka-green/10 shadow-[0_20px_60px_-30px_rgba(23,59,53,0.35)]"
+            curtain="#EBE3D6"
+          />
         </div>
       </div>
     </section>
@@ -933,9 +956,9 @@ function Galeria() {
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <SectionKicker light>Galeria</SectionKicker>
-            <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
+            <RevealTitle className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
               Um espaço construído para preservar a cultura e o espírito de Okinawa
-            </h2>
+            </RevealTitle>
           </div>
           <div className="hidden sm:flex items-center gap-3 text-sm text-kominka-sand/80 font-mono">
             <span>{String(activeIndex + 1).padStart(2, "0")}</span>
@@ -977,8 +1000,10 @@ function Galeria() {
                   decoding="async"
                   className="img-zoom aspect-4/5 w-full object-cover pointer-events-none"
                 />
-                <div className="absolute inset-0 bg-linear-to-t from-kominka-green-deep/80 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 flex items-end p-4">
-                  <p className="text-xs text-kominka-cream font-medium line-clamp-2">{it.label}</p>
+                <div className="absolute inset-0 flex items-end bg-linear-to-t from-kominka-green-deep/85 via-kominka-green-deep/10 to-transparent p-4 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                  <p className="translate-y-3 text-xs font-medium text-kominka-cream line-clamp-2 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0">
+                    {it.label}
+                  </p>
                 </div>
               </figure>
             ))}
@@ -1006,7 +1031,7 @@ function Galeria() {
           onClick={() => setModalIndex(null)}
         >
           <div
-            className="relative flex max-h-[90vh] max-w-5xl flex-col items-center justify-center"
+            className="lightbox-pop relative flex max-h-[90vh] max-w-5xl flex-col items-center justify-center"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Cabeçalho do Modal */}
@@ -1068,13 +1093,7 @@ function Galeria() {
 }
 
 /** Seta circular destacada com ótimo contraste e área de toque para mobile e desktop. */
-function GaleriaSeta({
-  direction,
-  onClick,
-}: {
-  direction: "left" | "right";
-  onClick: () => void;
-}) {
+function GaleriaSeta({ direction, onClick }: { direction: "left" | "right"; onClick: () => void }) {
   const isLeft = direction === "left";
   return (
     <button
@@ -1128,9 +1147,9 @@ function PorQue() {
         <div className="grid gap-10 md:grid-cols-12 md:items-end">
           <div className="md:col-span-7">
             <SectionKicker>Por quê</SectionKicker>
-            <h2 className="mt-4 font-serif text-3xl leading-tight text-kominka-green md:text-5xl">
+            <RevealTitle className="mt-4 font-serif text-3xl leading-tight text-kominka-green md:text-5xl">
               Mais que uma aula de karate
-            </h2>
+            </RevealTitle>
           </div>
           <p className="max-w-xl text-[15px] leading-relaxed text-kominka-ink/75 md:col-span-5 md:text-base">
             No Kominka Dojo, cada treino é uma oportunidade de desenvolver corpo, mente e caráter em
@@ -1200,9 +1219,9 @@ function Localizacao() {
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <div>
             <SectionKicker>Localização</SectionKicker>
-            <h2 className="mt-4 font-serif text-3xl leading-tight text-kominka-green md:text-5xl">
+            <RevealTitle className="mt-4 font-serif text-3xl leading-tight text-kominka-green md:text-5xl">
               Visite o Kominka Dojo
-            </h2>
+            </RevealTitle>
             <p className="mt-6 text-[15px] leading-relaxed text-kominka-ink/80 md:text-base">
               Estamos localizados em Pontal de Camburi, Vitória/ES.
             </p>
@@ -1269,9 +1288,9 @@ function FAQ() {
     <section className="bg-kominka-cream py-20 md:py-28">
       <div className="mx-auto max-w-4xl px-5 lg:px-8">
         <SectionKicker>Perguntas</SectionKicker>
-        <h2 className="mt-4 font-serif text-3xl leading-tight text-kominka-green md:text-5xl">
+        <RevealTitle className="mt-4 font-serif text-3xl leading-tight text-kominka-green md:text-5xl">
           Perguntas frequentes
-        </h2>
+        </RevealTitle>
         <div className="mt-10 divide-y divide-kominka-green/15 border-t border-b border-kominka-green/15">
           {items.map((it, i) => (
             <FAQItem key={i} q={it.q} a={it.a} />
@@ -1316,35 +1335,52 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 /* ---------------- CTA FINAL ---------------- */
 function CTAFinal() {
   return (
-    <section className="relative overflow-hidden bg-kominka-green-deep py-24 text-kominka-cream md:py-32">
-      <div
-        className="absolute inset-0 opacity-[0.12]"
-        aria-hidden
-        style={{
-          backgroundImage:
-            "radial-gradient(ellipse at 50% 0%, rgba(201,185,154,0.4), transparent 60%)",
-        }}
+    <section className="film-grain vignette relative overflow-hidden bg-kominka-green-deep py-24 text-kominka-cream md:py-32">
+      <CTAGlow />
+      <Enso
+        size={420}
+        spin
+        className="pointer-events-none absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 text-kominka-sand/10 md:block"
       />
-      <div className="relative mx-auto max-w-3xl px-5 text-center lg:px-8">
+      <div className="relative z-10 mx-auto max-w-3xl px-5 text-center lg:px-8">
         <div className="mx-auto h-px w-16 bg-kominka-sand" />
-        <h2 className="mt-8 font-serif text-4xl leading-tight md:text-6xl">
+        <RevealTitle className="mt-8 font-serif text-4xl leading-tight md:text-6xl">
           Venha conhecer o <br className="hidden sm:block" />
           <span className="italic text-kominka-sand">Kominka Dojo</span>
-        </h2>
-        <p className="mx-auto mt-6 max-w-xl text-[15px] leading-relaxed text-kominka-cream/80 md:text-base">
-          Agende uma aula experimental gratuita e conheça de perto a prática do Karate Goju-Ryu de
-          Okinawa em um ambiente de tradição, disciplina e acolhimento.
-        </p>
-        <a
-          href={WA_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-10 inline-flex items-center gap-2 rounded-full bg-kominka-cream px-8 py-4 text-sm font-medium text-kominka-green hover:bg-white"
-        >
-          <MessageCircle size={16} /> Agendar pelo WhatsApp
-        </a>
+        </RevealTitle>
+        <Reveal delay={200}>
+          <p className="mx-auto mt-6 max-w-xl text-[15px] leading-relaxed text-kominka-cream/80 md:text-base">
+            Agende uma aula experimental gratuita e conheça de perto a prática do Karate Goju-Ryu de
+            Okinawa em um ambiente de tradição, disciplina e acolhimento.
+          </p>
+          <a
+            href={WA_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-lift mt-10 inline-flex items-center gap-2 rounded-full bg-kominka-cream px-8 py-4 text-sm font-medium text-kominka-green hover:bg-white"
+          >
+            <MessageCircle size={16} /> Agendar pelo WhatsApp
+          </a>
+        </Reveal>
       </div>
     </section>
+  );
+}
+
+/** Halo de luz do CTA, deslocado na rolagem para o fundo não parecer chapado. */
+function CTAGlow() {
+  const ref = useParallax<HTMLDivElement>(48);
+  return (
+    <div className="absolute inset-0 overflow-hidden" aria-hidden>
+      <div
+        ref={ref}
+        className="h-full w-full opacity-[0.16]"
+        style={{
+          backgroundImage:
+            "radial-gradient(ellipse at 50% 10%, rgba(201,185,154,0.5), transparent 62%)",
+        }}
+      />
+    </div>
   );
 }
 
@@ -1447,9 +1483,11 @@ function FloatingWhatsApp() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Falar no WhatsApp"
-      className="fixed bottom-5 right-5 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg ring-1 ring-white/30 hover:bg-[#1EBE5D] md:h-16 md:w-16"
+      className="group fixed bottom-5 right-5 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg ring-1 ring-white/30 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-110 hover:bg-[#1EBE5D] active:scale-95 md:h-16 md:w-16"
     >
-      <MessageCircle size={24} />
+      {/* Halo lento que se afasta do botão — pulso de rádio, não alarme */}
+      <span className="halo absolute inset-0 rounded-full bg-[#25D366]" aria-hidden />
+      <MessageCircle size={24} className="relative z-10" />
     </a>
   );
 }
@@ -1485,11 +1523,130 @@ function Reveal({
   );
 }
 
+/**
+ * Foto com tratamento cinematográfico: uma cortina desliza revelando o quadro,
+ * a imagem assenta de um leve zoom até o tamanho final e ganha parallax na
+ * rolagem.
+ *
+ * As três animações vivem em elementos diferentes de propósito — cortina no
+ * quadro, parallax no plano, escala na imagem. Empilhá-las no mesmo nó faria o
+ * transform inline do parallax atropelar a transição de escala.
+ *
+ * `curtain` deve receber a cor de fundo da seção, senão a cortina aparece como
+ * um retângulo estranho durante o segundo em que desliza.
+ */
+function CinematicImage({
+  src,
+  alt,
+  className = "",
+  curtain = "#EBE3D6",
+  strength = 26,
+  priority = false,
+  drift = false,
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  curtain?: string;
+  strength?: number;
+  priority?: boolean;
+  /** Ken Burns contínuo. Substitui o assentamento de escala — use no hero. */
+  drift?: boolean;
+}) {
+  const { ref: frameRef, visible } = useReveal<HTMLDivElement>();
+  const planeRef = useParallax<HTMLDivElement>(strength);
+
+  return (
+    <div
+      ref={frameRef}
+      style={{ "--curtain": curtain } as React.CSSProperties}
+      className={`media-reveal ${visible ? "media-reveal-in" : ""} ${className}`}
+    >
+      <div ref={planeRef} className="media-plane">
+        <img
+          src={src}
+          alt={alt}
+          className={drift ? "media-shot ken-burns" : "media-shot"}
+          loading={priority ? "eager" : "lazy"}
+          fetchPriority={priority ? "high" : undefined}
+          decoding="async"
+        />
+      </div>
+    </div>
+  );
+}
+
+/** Título de seção revelado por wipe vertical, como uma cartela de abertura. */
+function RevealTitle({
+  children,
+  className = "",
+  delay = 0,
+}: {
+  children: ReactNode;
+  className?: string;
+  delay?: number;
+}) {
+  const { ref, visible } = useReveal<HTMLHeadingElement>();
+  return (
+    <h2
+      ref={ref}
+      style={{ transitionDelay: `${delay}ms` }}
+      className={`title-reveal ${visible ? "title-reveal-in" : ""} text-balance ${className}`}
+    >
+      {children}
+    </h2>
+  );
+}
+
+/** Fio de progresso de leitura no topo da página. */
+function ScrollProgress() {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    let frame = 0;
+    const apply = () => {
+      frame = 0;
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(scrollable > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollable)) : 0);
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(apply);
+    };
+    apply();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    return () => {
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  return (
+    <div className="pointer-events-none fixed inset-x-0 top-0 z-50 h-0.5" aria-hidden>
+      <div
+        className="h-full origin-left bg-linear-to-r from-kominka-sand via-kominka-wood to-kominka-sand"
+        style={{ transform: `scaleX(${progress})` }}
+      />
+    </div>
+  );
+}
+
 /** Círculo ensō — desenhado com stroke tracejado. Detalhe zen sutil. */
-function Enso({ className = "", size = 72 }: { className?: string; size?: number }) {
+function Enso({
+  className = "",
+  size = 72,
+  spin = false,
+}: {
+  className?: string;
+  size?: number;
+  spin?: boolean;
+}) {
   return (
     <svg width={size} height={size} viewBox="0 0 100 100" className={className} aria-hidden>
       <circle
+        className={spin ? "enso-spin" : undefined}
+        style={{ transformOrigin: "50px 50px" }}
         cx="50"
         cy="50"
         r="42"
