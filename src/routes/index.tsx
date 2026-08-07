@@ -342,9 +342,9 @@ function ODojo() {
     "Ambiente cultural e acolhedor",
   ];
   return (
-    <section id="dojo" className="bg-kominka-cream py-20 md:py-28">
+    <section id="dojo" className="bg-kominka-cream py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <div className="hidden lg:block lg:order-1">
             <CinematicImage
               src={dojoFachada}
@@ -353,14 +353,16 @@ function ODojo() {
               curtain="#F5F0EA"
             />
           </div>
-          <div className="lg:order-2">
-            <SectionKicker>O espaço</SectionKicker>
-            <RevealTitle className="mt-4 font-serif text-3xl leading-tight text-kominka-green md:text-5xl">
-              Um dojo inspirado na tradição de Okinawa
-            </RevealTitle>
+          <div className="lg:order-2 space-y-6">
+            <div className="space-y-3">
+              <SectionKicker>O espaço</SectionKicker>
+              <RevealTitle className="font-serif text-3xl leading-tight text-kominka-green md:text-4xl lg:text-5xl">
+                Um dojo inspirado na tradição de Okinawa
+              </RevealTitle>
+            </div>
 
             {/* Foto abaixo do título — apenas mobile/tablet */}
-            <div className="mt-8 lg:hidden">
+            <div className="lg:hidden">
               <CinematicImage
                 src={dojoFachada}
                 alt="Fachada de madeira do Kominka Dojo, réplica de uma casa tradicional de Okinawa"
@@ -369,20 +371,23 @@ function ODojo() {
               />
             </div>
 
-            <p className="mt-6 text-[15px] leading-relaxed text-kominka-ink/80 md:text-base">
-              O Kominka Dojo é uma réplica externa de uma antiga casa tradicional da Ilha de
-              Okinawa, no Japão. O espaço abriga a prática do Karate Goju-Ryu tradicional, funciona
-              como zendo para meditação e também atende na área do Shiatsu.
-            </p>
-            <p className="mt-4 text-[15px] leading-relaxed text-kominka-ink/80 md:text-base">
-              Localizado em Pontal de Camburi, Vitória/ES, o dojo oferece uma experiência que vai
-              além da atividade física: é um ambiente de disciplina, cultura, autoconhecimento e
-              convivência.
-            </p>
-            <ul className="mt-8 space-y-3">
+            <div className="space-y-4 text-[15px] leading-relaxed text-kominka-ink/80 md:text-base">
+              <p>
+                O Kominka Dojo é uma réplica externa de uma antiga casa tradicional da Ilha de
+                Okinawa, no Japão. O espaço abriga a prática do Karate Goju-Ryu tradicional, funciona
+                como zendo para meditação e também atende na área do Shiatsu.
+              </p>
+              <p>
+                Localizado em Pontal de Camburi, Vitória/ES, o dojo oferece uma experiência que vai
+                além da atividade física: é um ambiente de disciplina, cultura, autoconhecimento e
+                convivência.
+              </p>
+            </div>
+
+            <ul className="space-y-2.5 pt-2">
               {destaques.map((d) => (
-                <li key={d} className="flex items-start gap-3 text-[15px] text-kominka-ink/85">
-                  <span className="mt-2 h-px w-6 shrink-0 bg-kominka-green" />
+                <li key={d} className="flex items-center gap-3 text-[15px] text-kominka-ink/85">
+                  <span className="h-px w-5 shrink-0 bg-kominka-green" />
                   {d}
                 </li>
               ))}
@@ -413,21 +418,23 @@ function Karate() {
     "Conexão com a cultura okinawana",
   ];
   return (
-    <section id="karate" className="bg-kominka-green-deep py-20 text-kominka-cream md:py-28">
+    <section id="karate" className="bg-kominka-green-deep py-16 text-kominka-cream md:py-24">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <Reveal className="max-w-3xl">
-          <SectionKicker light>A prática</SectionKicker>
-          <h2 className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
-            Karate para corpo, mente e disciplina
-          </h2>
-          <p className="mt-6 text-[15px] leading-relaxed text-kominka-cream/80 md:text-base">
+        <Reveal className="max-w-3xl space-y-4">
+          <div className="space-y-3">
+            <SectionKicker light>A prática</SectionKicker>
+            <h2 className="font-serif text-3xl leading-tight md:text-4xl lg:text-5xl">
+              Karate para corpo, mente e disciplina
+            </h2>
+          </div>
+          <p className="text-[15px] leading-relaxed text-kominka-cream/80 md:text-base">
             No Kominka Dojo, as aulas seguem a tradição do Goju-Ryu Karate-do de Okinawa, com
             prática voltada para defesa pessoal, condicionamento físico, concentração, respeito e
             preservação dos valores do karate tradicional.
           </p>
         </Reveal>
 
-        <div className="mt-14 grid gap-6 md:grid-cols-2">
+        <div className="mt-10 grid gap-6 md:grid-cols-2 md:mt-12">
           <Reveal delay={100}>
             <BenefitBlock title="Para crianças de 6 a 12 anos" items={kids} />
           </Reveal>
@@ -444,8 +451,8 @@ function BenefitBlock({ title, items }: { title: string; items: string[] }) {
   return (
     <div className="border border-kominka-cream/15 bg-kominka-green p-8 md:p-10">
       <h3 className="font-serif text-2xl text-kominka-cream md:text-3xl">{title}</h3>
-      <div className="mt-6 h-px w-12 bg-kominka-sand" />
-      <ul className="mt-6 space-y-3">
+      <div className="mt-5 h-px w-12 bg-kominka-sand" />
+      <ul className="mt-5 space-y-3">
         {items.map((i) => (
           <li key={i} className="flex items-start gap-3 text-[15px] text-kominka-cream/80">
             <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-kominka-sand" />
@@ -460,9 +467,9 @@ function BenefitBlock({ title, items }: { title: string; items: string[] }) {
 /* ---------------- IOGKF ---------------- */
 function IOGKF() {
   return (
-    <section id="iogkf" className="bg-kominka-cream-warm py-20 md:py-28">
+    <section id="iogkf" className="bg-kominka-cream-warm py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <div className="hidden lg:block">
             <CinematicImage
               src={iogkfImg}
@@ -470,13 +477,15 @@ function IOGKF() {
               className="aspect-4/5 w-full rounded-sm border border-kominka-green/15 shadow-xl"
             />
           </div>
-          <div>
-            <SectionKicker>Honbu Dojo</SectionKicker>
-            <RevealTitle className="mt-4 font-serif text-3xl leading-tight text-kominka-green md:text-5xl">
-              Honbu Dojo da IOGKF Brasil
-            </RevealTitle>
+          <div className="space-y-6">
+            <div className="space-y-3">
+              <SectionKicker>Honbu Dojo</SectionKicker>
+              <RevealTitle className="font-serif text-3xl leading-tight text-kominka-green md:text-4xl lg:text-5xl">
+                Honbu Dojo da IOGKF Brasil
+              </RevealTitle>
+            </div>
 
-            <div className="mt-8 lg:hidden">
+            <div className="lg:hidden">
               <CinematicImage
                 src={iogkfImg}
                 alt="Encontro da IOGKF Brasil reunindo praticantes de Goju-Ryu de Okinawa"
@@ -484,34 +493,36 @@ function IOGKF() {
               />
             </div>
 
-            <p className="mt-6 text-[15px] leading-relaxed text-kominka-ink/80 md:text-base">
-              O Kominka Dojo é o Honbu Dojo — dojo central — da IOGKF Brasil, organização dedicada à
-              preservação e difusão do Karate Goju-Ryu tradicional de Okinawa.
-            </p>
-            <p className="mt-4 text-[15px] leading-relaxed text-kominka-ink/80 md:text-base">
-              A IOGKF Brasil integra a International Okinawan Goju-ryu Karate-do Federation (IOGKF),
-              uma das maiores e mais tradicionais organizações internacionais dedicadas ao Goju-ryu
-              de Okinawa, com presença em diversos países ao redor do mundo.
-            </p>
-            <p className="mt-4 text-[15px] leading-relaxed text-kominka-ink/80 md:text-base">
-              A partir do Kominka, são desenvolvidas atividades de treinamento, cursos, encontros e
-              Gasshukus, mantendo viva a tradição do Goju-ryu de Okinawa e promovendo sua prática de
-              forma fiel às suas raízes.
-            </p>
+            <div className="space-y-4 text-[15px] leading-relaxed text-kominka-ink/80 md:text-base">
+              <p>
+                O Kominka Dojo é o Honbu Dojo — dojo central — da IOGKF Brasil, organização dedicada à
+                preservação e difusão do Karate Goju-Ryu tradicional de Okinawa.
+              </p>
+              <p>
+                A IOGKF Brasil integra a International Okinawan Goju-ryu Karate-do Federation (IOGKF),
+                uma das maiores e mais tradicionais organizações internacionais dedicadas ao Goju-ryu
+                de Okinawa, com presença em diversos países ao redor do mundo.
+              </p>
+              <p>
+                A partir do Kominka, são desenvolvidas atividades de treinamento, cursos, encontros e
+                Gasshukus, mantendo viva a tradição do Goju-ryu de Okinawa e promovendo sua prática de
+                forma fiel às suas raízes.
+              </p>
+            </div>
 
             <Reveal delay={120}>
-              <div className="mt-10 flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:gap-8">
+              <div className="pt-2 flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:gap-8">
                 <img
                   src={iogkfLogo}
                   alt="Logomarca da IOGKF Brasil"
-                  className="h-28 w-auto shrink-0 drop-shadow-[0_8px_20px_rgba(23,59,53,0.18)] transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-105 md:h-32"
+                  className="h-24 w-auto shrink-0 drop-shadow-[0_8px_20px_rgba(23,59,53,0.18)] transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-105 md:h-28"
                   loading="lazy"
                 />
                 <a
                   href={IOGKF_SITE}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="shine btn-lift inline-flex items-center gap-3 border border-kominka-green bg-kominka-green px-6 py-3 text-xs tracking-[0.2em] uppercase text-kominka-cream hover:bg-kominka-green-deep"
+                  className="shine btn-lift inline-flex items-center gap-3 border border-kominka-green bg-kominka-green px-6 py-3.5 text-xs tracking-[0.2em] uppercase text-kominka-cream hover:bg-kominka-green-deep"
                 >
                   <span className="relative z-10">Saiba mais sobre a IOGKF Brasil</span>
                   <span className="relative z-10" aria-hidden="true">
@@ -530,52 +541,58 @@ function IOGKF() {
 /* ---------------- NA MÍDIA ---------------- */
 function NaMidia() {
   return (
-    <section className="bg-kominka-cream py-20 md:py-28 text-kominka-ink">
+    <section className="bg-kominka-cream py-16 md:py-24 text-kominka-ink">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <div className="max-w-2xl">
+        <div className="max-w-2xl space-y-3">
           <SectionKicker>Na Mídia</SectionKicker>
-          <RevealTitle className="mt-4 font-serif text-3xl leading-tight text-kominka-green md:text-5xl">
+          <RevealTitle className="font-serif text-3xl leading-tight text-kominka-green md:text-4xl lg:text-5xl">
             Kominka Dojo na mídia
           </RevealTitle>
-          <p className="mt-5 text-[15px] leading-relaxed text-kominka-ink/75 md:text-base">
+          <p className="pt-1 text-[15px] leading-relaxed text-kominka-ink/75 md:text-base">
             Uma história de tradição, cultura e dedicação reconhecida pela imprensa capixaba.
           </p>
         </div>
 
-        <article className="mt-12 grid gap-0 border border-kominka-sand/40 bg-kominka-cream-warm text-kominka-ink shadow-sm lg:grid-cols-[1.1fr_1fr]">
-          <div className="order-2 p-8 md:p-12 lg:order-1">
-            <span className="inline-flex items-center gap-2 border border-kominka-green/25 px-3 py-1 text-[10px] tracking-[0.25em] uppercase text-kominka-green">
-              Destaque na Folha Vitória
-            </span>
-            <h3 className="mt-6 font-serif text-2xl leading-snug text-kominka-green md:text-4xl">
-              Casal constrói casa japonesa para ensinar caratê em Vitória
-            </h3>
-            <div className="mt-6 border-l-2 border-kominka-sand pl-5">
+        <article className="mt-10 grid gap-0 border border-kominka-sand/40 bg-kominka-cream-warm text-kominka-ink shadow-sm md:mt-12 lg:grid-cols-[1.1fr_1fr]">
+          <div className="order-2 p-8 md:p-12 lg:order-1 space-y-6">
+            <div>
+              <span className="inline-flex items-center gap-2 border border-kominka-green/25 px-3 py-1 text-[10px] tracking-[0.25em] uppercase text-kominka-green">
+                Destaque na Folha Vitória
+              </span>
+              <h3 className="mt-4 font-serif text-2xl leading-snug text-kominka-green md:text-3xl lg:text-4xl">
+                Casal constrói casa japonesa para ensinar caratê em Vitória
+              </h3>
+            </div>
+            <div className="border-l-2 border-kominka-sand pl-5">
               <p className="font-serif text-lg italic leading-relaxed text-kominka-ink/80 md:text-xl">
                 O Kominka Dojo foi destaque em reportagem da Folha Vitória por sua história única:
                 um espaço construído com inspiração nas antigas casas de Okinawa, dedicado ao ensino
                 do Karate Goju-Ryu tradicional e à valorização da cultura okinawana.
               </p>
             </div>
-            <p className="mt-6 text-[15px] leading-relaxed text-kominka-ink/75">
-              A matéria apresenta a trajetória dos senseis Zé Mário e Rosi, a construção do dojo com
-              as próprias mãos e a proposta de preservar, em Vitória, a prática e a filosofia do
-              Karate Goju-Ryu de Okinawa.
-            </p>
-            <p className="mt-4 text-[15px] leading-relaxed text-kominka-ink/75">
-              Uma história de perseverança, cultura e respeito às origens do karate tradicional.
-            </p>
-            <a
-              href="https://www.folhavitoria.com.br/esportes/karate-kid-em-vitoria-casal-constroi-casa-japonesa-pra-ensinar-carate-em-vitoria/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPOTM2NjE5NzQzMzkyNDU5AAGnObmbHWW2TtcjdCpjdeIKnK3JPunQ50O4M15yTexMCMQmfilHJJV5ATXBq9A_aem_Iz8_5M-eyPs2ioKB9A80gg"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="shine btn-lift mt-8 inline-flex items-center gap-3 border border-kominka-green bg-kominka-green px-6 py-3 text-xs tracking-[0.2em] uppercase text-kominka-cream hover:bg-kominka-green-deep"
-            >
-              <span className="relative z-10">Ler reportagem na Folha Vitória</span>
-              <span className="relative z-10" aria-hidden="true">
-                →
-              </span>
-            </a>
+            <div className="space-y-3 text-[15px] leading-relaxed text-kominka-ink/75">
+              <p>
+                A matéria apresenta a trajetória dos senseis Zé Mário e Rosi, a construção do dojo com
+                as próprias mãos e a proposta de preservar, em Vitória, a prática e a filosofia do
+                Karate Goju-Ryu de Okinawa.
+              </p>
+              <p>
+                Uma história de perseverança, cultura e respeito às origens do karate tradicional.
+              </p>
+            </div>
+            <div className="pt-2">
+              <a
+                href="https://www.folhavitoria.com.br/esportes/karate-kid-em-vitoria-casal-constroi-casa-japonesa-pra-ensinar-carate-em-vitoria/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPOTM2NjE5NzQzMzkyNDU5AAGnObmbHWW2TtcjdCpjdeIKnK3JPunQ50O4M15yTexMCMQmfilHJJV5ATXBq9A_aem_Iz8_5M-eyPs2ioKB9A80gg"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shine btn-lift inline-flex items-center gap-3 border border-kominka-green bg-kominka-green px-6 py-3.5 text-xs tracking-[0.2em] uppercase text-kominka-cream hover:bg-kominka-green-deep"
+              >
+                <span className="relative z-10">Ler reportagem na Folha Vitória</span>
+                <span className="relative z-10" aria-hidden="true">
+                  →
+                </span>
+              </a>
+            </div>
           </div>
           <div className="order-1 lg:order-2">
             <CinematicImage
@@ -628,7 +645,7 @@ function Horarios() {
           href={WA_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-kominka-green underline underline-offset-4 hover:opacity-70"
+          className="inline-flex items-center gap-2 text-kominka-green font-medium underline underline-offset-4 hover:opacity-75"
         >
           Agendar pelo WhatsApp · (27) 99921-6299
         </a>
@@ -643,7 +660,7 @@ function Horarios() {
           href={SHIATSU_WA_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-kominka-green underline underline-offset-4 hover:opacity-70"
+          className="inline-flex items-center gap-2 text-kominka-green font-medium underline underline-offset-4 hover:opacity-75"
         >
           Agendar pelo WhatsApp · (27) 99979-8718
         </a>
@@ -652,19 +669,19 @@ function Horarios() {
   ];
 
   return (
-    <section id="horarios" className="bg-kominka-cream-warm py-20 md:py-28">
+    <section id="horarios" className="bg-kominka-cream-warm py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <div className="max-w-3xl">
+        <div className="max-w-3xl space-y-3">
           <SectionKicker>Turmas</SectionKicker>
-          <RevealTitle className="mt-4 font-serif text-3xl leading-tight text-kominka-green md:text-5xl">
+          <RevealTitle className="font-serif text-3xl leading-tight text-kominka-green md:text-4xl lg:text-5xl">
             Horários das aulas
           </RevealTitle>
         </div>
 
-        <div className="mt-12 grid gap-5 md:grid-cols-2">
+        <div className="mt-10 grid gap-6 md:grid-cols-2 md:mt-12">
           {turmas.map((t, i) => (
             <Reveal key={t.tag} delay={i * 90} className="flex">
-              <article className="group flex flex-1 flex-col justify-between border border-kominka-green/15 bg-kominka-cream p-8 transition-[transform,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-kominka-green/40 hover:shadow-[0_24px_50px_-30px_rgba(23,59,53,0.45)]">
+              <article className="group flex flex-1 flex-col justify-between border border-kominka-green/15 bg-kominka-cream p-7 md:p-8 transition-[transform,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-kominka-green/40 hover:shadow-[0_24px_50px_-30px_rgba(23,59,53,0.45)]">
                 <div>
                   <div className="text-[10px] tracking-[0.25em] uppercase text-kominka-green/70">
                     {t.tag}
@@ -673,7 +690,7 @@ function Horarios() {
                     {t.titulo}
                   </h3>
                   <div className="mt-4 h-px w-10 bg-kominka-green/30" />
-                  <dl className="mt-5 grid grid-cols-1 gap-3 text-sm sm:grid-cols-2">
+                  <dl className="mt-5 grid grid-cols-1 gap-4 text-sm sm:grid-cols-2">
                     {t.idade && <Info label="Idade" value={t.idade} />}
                     {t.valor && <Info label="Investimento" value={t.valor} />}
                     <div className="sm:col-span-2">
@@ -687,24 +704,28 @@ function Horarios() {
                       </dd>
                     </div>
                   </dl>
-                  {t.nota && <p className="mt-5 text-sm">{t.nota}</p>}
                 </div>
+                {t.nota && (
+                  <div className="mt-6 pt-4 border-t border-kominka-green/10 text-sm">
+                    {t.nota}
+                  </div>
+                )}
               </article>
             </Reveal>
           ))}
         </div>
 
-        <p className="mt-10 max-w-3xl text-sm leading-relaxed text-kominka-ink/70 italic">
-          Você pode fazer uma aula experimental gratuita e sem compromisso. Permanecendo na prática
-          do karate, é necessária a filiação anual no valor de R$ 80,00.
-        </p>
+        <div className="mt-10 flex flex-col items-start justify-between gap-6 border-t border-kominka-green/15 pt-8 lg:flex-row lg:items-center">
+          <p className="max-w-2xl text-sm leading-relaxed text-kominka-ink/75 italic">
+            Você pode fazer uma aula experimental gratuita e sem compromisso. Permanecendo na prática
+            do karate, é necessária a filiação anual no valor de R$ 80,00.
+          </p>
 
-        <div className="mt-8">
           <a
             href={WA_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="shine btn-lift inline-flex items-center gap-2 rounded-full bg-kominka-green px-7 py-4 text-sm font-medium text-kominka-cream hover:bg-kominka-green-deep"
+            className="shine btn-lift shrink-0 rounded-full bg-kominka-green px-7 py-3.5 text-sm font-medium text-kominka-cream hover:bg-kominka-green-deep"
           >
             <span className="relative z-10">Quero agendar minha aula experimental</span>
           </a>
@@ -726,43 +747,49 @@ function Info({ label, value }: { label: string; value: string }) {
 /* ---------------- ZAZEN ---------------- */
 function Zazen() {
   return (
-    <section id="zazen" className="bg-kominka-cream py-20 md:py-28">
-      <div className="mx-auto max-w-6xl px-5 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center">
-          <div>
-            <SectionKicker>Zazen</SectionKicker>
-            <RevealTitle className="mt-4 font-serif text-3xl leading-tight text-kominka-green md:text-5xl">
-              Meditação aberta à comunidade
-            </RevealTitle>
-            <p className="mt-6 text-[15px] leading-relaxed text-kominka-ink/80 md:text-base">
-              Quinzenalmente, o Kominka Dojo abre suas portas como espaço para meditação, com
-              entrada franca. A prática segue a linha da meditação Zen Budista, em postura de zazen
-              (sentado), oferecendo um momento de silêncio, presença e autoconhecimento.
-            </p>
-            <p className="mt-4 text-[15px] leading-relaxed text-kominka-ink/80 md:text-base">
-              Nesses encontros são passadas informações de como praticar por conta própria, é lido
-              um pequeno texto sobre o assunto e no final é servido um chá.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-4 text-sm text-kominka-ink/70">
+    <section id="zazen" className="bg-kominka-cream py-16 md:py-24">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+          <div className="space-y-6">
+            <div className="space-y-3">
+              <SectionKicker>Zazen</SectionKicker>
+              <RevealTitle className="font-serif text-3xl leading-tight text-kominka-green md:text-4xl lg:text-5xl">
+                Meditação aberta à comunidade
+              </RevealTitle>
+            </div>
+            <div className="space-y-4 text-[15px] leading-relaxed text-kominka-ink/80 md:text-base">
+              <p>
+                Quinzenalmente, o Kominka Dojo abre suas portas como espaço para meditação, com
+                entrada franca. A prática segue a linha da meditação Zen Budista, em postura de zazen
+                (sentado), oferecendo um momento de silêncio, presença e autoconhecimento.
+              </p>
+              <p>
+                Nesses encontros são passadas informações de como praticar por conta própria, é lido
+                um pequeno texto sobre o assunto e no final é servido um chá.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-4 text-sm text-kominka-ink/70 pt-1">
               <span className="inline-flex items-center gap-2">
-                <Clock size={16} /> Sábados, quinzenalmente · 08h00
+                <Clock size={16} className="text-kominka-green" /> Sábados, quinzenalmente · 08h00
               </span>
               <span>·</span>
-              <span>Entrada franca</span>
+              <span className="font-medium text-kominka-green">Entrada franca</span>
             </div>
-            <a
-              href={WA_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-8 inline-flex items-center gap-2 border-b border-kominka-green pb-1 text-sm text-kominka-green hover:opacity-70"
-            >
-              Perguntar sobre a meditação →
-            </a>
+            <div className="pt-2">
+              <a
+                href={WA_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 border-b border-kominka-green pb-1 text-sm font-medium text-kominka-green hover:opacity-70 transition-opacity"
+              >
+                Perguntar sobre a meditação →
+              </a>
+            </div>
           </div>
           <CinematicImage
             src={zazenImg}
             alt="Praticantes em postura de zazen no Kominka Dojo"
-            className="aspect-square w-full rounded-sm ring-1 ring-kominka-green/10 shadow-[0_20px_60px_-30px_rgba(23,59,53,0.35)]"
+            className="aspect-4/3 w-full rounded-sm ring-1 ring-kominka-green/10 shadow-[0_20px_60px_-30px_rgba(23,59,53,0.35)]"
             curtain="#F5F0EA"
           />
         </div>
@@ -774,41 +801,47 @@ function Zazen() {
 /* ---------------- SHIATSU ---------------- */
 function Shiatsu() {
   return (
-    <section id="shiatsu" className="bg-kominka-cream-warm py-20 md:py-28">
-      <div className="mx-auto max-w-6xl px-5 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center">
-          <div>
-            <SectionKicker>Shiatsu</SectionKicker>
-            <RevealTitle className="mt-4 font-serif text-3xl leading-tight text-kominka-green md:text-5xl">
-              Equilíbrio através do toque
-            </RevealTitle>
-            <p className="mt-6 text-[15px] leading-relaxed text-kominka-ink/80 md:text-base">
-              O Kominka Dojo também oferece atendimento de Shiatsu, uma terapia corporal tradicional
-              japonesa que utiliza a pressão dos dedos, mãos e polegares sobre pontos e regiões
-              específicas do corpo.
-            </p>
-            <p className="mt-4 text-[15px] leading-relaxed text-kominka-ink/80 md:text-base">
-              Por meio de pressões, alongamentos e movimentos precisos, o Shiatsu busca favorecer o
-              equilíbrio do organismo, aliviar tensões e proporcionar uma sensação de relaxamento e
-              bem-estar.
-            </p>
-            <p className="mt-4 text-[15px] leading-relaxed text-kominka-ink/80 md:text-base">
-              No ambiente acolhedor e tradicional do Kominka, o atendimento de Shiatsu é uma
-              oportunidade para cuidar do corpo e encontrar um momento de pausa e equilíbrio.
-            </p>
-            <a
-              href={SHIATSU_WA_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-8 inline-flex items-center gap-2 border-b border-kominka-green pb-1 text-sm text-kominka-green hover:opacity-70"
-            >
-              Agendar Shiatsu pelo WhatsApp →
-            </a>
+    <section id="shiatsu" className="bg-kominka-cream-warm py-16 md:py-24">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+          <div className="space-y-6">
+            <div className="space-y-3">
+              <SectionKicker>Shiatsu</SectionKicker>
+              <RevealTitle className="font-serif text-3xl leading-tight text-kominka-green md:text-4xl lg:text-5xl">
+                Equilíbrio através do toque
+              </RevealTitle>
+            </div>
+            <div className="space-y-4 text-[15px] leading-relaxed text-kominka-ink/80 md:text-base">
+              <p>
+                O Kominka Dojo também oferece atendimento de Shiatsu, uma terapia corporal tradicional
+                japonesa que utiliza a pressão dos dedos, mãos e polegares sobre pontos e regiões
+                específicas do corpo.
+              </p>
+              <p>
+                Por meio de pressões, alongamentos e movimentos precisos, o Shiatsu busca favorecer o
+                equilíbrio do organismo, aliviar tensões e proporcionar uma sensação de relaxamento e
+                bem-estar.
+              </p>
+              <p>
+                No ambiente acolhedor e tradicional do Kominka, o atendimento de Shiatsu é uma
+                oportunidade para cuidar do corpo e encontrar um momento de pausa e equilíbrio.
+              </p>
+            </div>
+            <div className="pt-2">
+              <a
+                href={SHIATSU_WA_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 border-b border-kominka-green pb-1 text-sm font-medium text-kominka-green hover:opacity-70 transition-opacity"
+              >
+                Agendar Shiatsu pelo WhatsApp →
+              </a>
+            </div>
           </div>
           <CinematicImage
             src={shiatsuImg}
             alt="Sala de atendimento de Shiatsu no Kominka Dojo"
-            className="aspect-4/5 w-full rounded-sm ring-1 ring-kominka-green/10 shadow-[0_20px_60px_-30px_rgba(23,59,53,0.35)]"
+            className="aspect-4/3 w-full rounded-sm ring-1 ring-kominka-green/10 shadow-[0_20px_60px_-30px_rgba(23,59,53,0.35)]"
             curtain="#EBE3D6"
           />
         </div>
@@ -951,12 +984,12 @@ function Galeria() {
   }, [modalIndex, items.length]);
 
   return (
-    <section id="galeria" className="bg-kominka-green py-20 text-kominka-cream md:py-28">
+    <section id="galeria" className="bg-kominka-green py-16 text-kominka-cream md:py-24">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-2xl">
+          <div className="max-w-2xl space-y-3">
             <SectionKicker light>Galeria</SectionKicker>
-            <RevealTitle className="mt-4 font-serif text-3xl leading-tight md:text-5xl">
+            <RevealTitle className="font-serif text-3xl leading-tight md:text-4xl lg:text-5xl">
               Um espaço construído para preservar a cultura e o espírito de Okinawa
             </RevealTitle>
           </div>
@@ -972,7 +1005,7 @@ function Galeria() {
           </div>
         </div>
 
-        <div className="relative mt-10 -mx-5 lg:-mx-8">
+        <div className="relative mt-8 md:mt-10 -mx-5 lg:-mx-8">
           <div
             ref={trackRef}
             role="region"
@@ -1142,12 +1175,12 @@ function PorQue() {
   );
   const experimentalUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${experimentalMsg}`;
   return (
-    <section className="paper-grain relative bg-kominka-cream py-20 md:py-28">
-      <div className="mx-auto max-w-6xl px-5 lg:px-8">
-        <div className="grid gap-10 md:grid-cols-12 md:items-end">
-          <div className="md:col-span-7">
+    <section className="paper-grain relative bg-kominka-cream py-16 md:py-24">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+        <div className="grid gap-6 md:grid-cols-12 md:items-end">
+          <div className="space-y-3 md:col-span-7">
             <SectionKicker>Por quê</SectionKicker>
-            <RevealTitle className="mt-4 font-serif text-3xl leading-tight text-kominka-green md:text-5xl">
+            <RevealTitle className="font-serif text-3xl leading-tight text-kominka-green md:text-4xl lg:text-5xl">
               Mais que uma aula de karate
             </RevealTitle>
           </div>
@@ -1157,13 +1190,13 @@ function PorQue() {
           </p>
         </div>
 
-        <div className="mt-14 grid gap-px overflow-hidden border border-kominka-green/15 bg-kominka-green/15 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-px overflow-hidden border border-kominka-green/15 bg-kominka-green/15 sm:grid-cols-2 lg:grid-cols-3 md:mt-12">
           {items.map((it, i) => (
             <PorQueBloco key={it.title} index={i} title={it.title} desc={it.desc} />
           ))}
         </div>
 
-        <div className="mt-16 flex flex-col items-center gap-6 border-t border-kominka-green/15 pt-10 text-center md:flex-row md:items-center md:justify-between md:text-left">
+        <div className="mt-12 flex flex-col items-center gap-6 border-t border-kominka-green/15 pt-8 text-center md:mt-16 md:flex-row md:items-center md:justify-between md:text-left">
           <p className="max-w-md font-serif text-xl leading-snug text-kominka-green md:text-2xl">
             Quer conhecer o ambiente e experimentar uma aula?
           </p>
@@ -1172,12 +1205,12 @@ function PorQue() {
               href={experimentalUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-lift inline-flex items-center justify-center gap-2 rounded-full bg-kominka-green px-6 py-3.5 text-sm text-kominka-cream hover:bg-kominka-green-deep"
+              className="shine btn-lift inline-flex items-center justify-center gap-2 rounded-full bg-kominka-green px-6 py-3.5 text-sm text-kominka-cream hover:bg-kominka-green-deep"
             >
               Agendar aula experimental
             </a>
             <a
-              href="#turmas"
+              href="#horarios"
               className="btn-lift inline-flex items-center justify-center gap-2 rounded-full border border-kominka-green/40 px-6 py-3.5 text-sm text-kominka-green hover:border-kominka-green hover:bg-kominka-green/5"
             >
               Ver horários
@@ -1214,18 +1247,20 @@ function PorQueBloco({ index, title, desc }: { index: number; title: string; des
 /* ---------------- LOCALIZAÇÃO ---------------- */
 function Localizacao() {
   return (
-    <section id="contato" className="bg-kominka-cream-warm py-20 md:py-28">
-      <div className="mx-auto max-w-6xl px-5 lg:px-8">
+    <section id="contato" className="bg-kominka-cream-warm py-16 md:py-24">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-          <div>
-            <SectionKicker>Localização</SectionKicker>
-            <RevealTitle className="mt-4 font-serif text-3xl leading-tight text-kominka-green md:text-5xl">
-              Visite o Kominka Dojo
-            </RevealTitle>
-            <p className="mt-6 text-[15px] leading-relaxed text-kominka-ink/80 md:text-base">
+          <div className="space-y-6">
+            <div className="space-y-3">
+              <SectionKicker>Localização</SectionKicker>
+              <RevealTitle className="font-serif text-3xl leading-tight text-kominka-green md:text-4xl lg:text-5xl">
+                Visite o Kominka Dojo
+              </RevealTitle>
+            </div>
+            <p className="text-[15px] leading-relaxed text-kominka-ink/80 md:text-base">
               Estamos localizados em Pontal de Camburi, Vitória/ES.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="flex flex-col gap-3 sm:flex-row pt-2">
               <a
                 href="https://www.google.com/maps/search/?api=1&query=Pontal+de+Camburi+Vit%C3%B3ria+ES+Kominka+Dojo"
                 target="_blank"
@@ -1245,7 +1280,7 @@ function Localizacao() {
             </div>
           </div>
 
-          <div className="aspect-4/3 w-full overflow-hidden border border-kominka-green/20 bg-kominka-cream">
+          <div className="aspect-4/3 w-full overflow-hidden border border-kominka-green/20 bg-kominka-cream shadow-md">
             <iframe
               title="Kominka Dojo · Pontal de Camburi"
               src="https://www.google.com/maps?q=Pontal+de+Camburi+Vit%C3%B3ria+ES&output=embed"
@@ -1285,13 +1320,15 @@ function FAQ() {
     },
   ];
   return (
-    <section className="bg-kominka-cream py-20 md:py-28">
+    <section className="bg-kominka-cream py-16 md:py-24">
       <div className="mx-auto max-w-4xl px-5 lg:px-8">
-        <SectionKicker>Perguntas</SectionKicker>
-        <RevealTitle className="mt-4 font-serif text-3xl leading-tight text-kominka-green md:text-5xl">
-          Perguntas frequentes
-        </RevealTitle>
-        <div className="mt-10 divide-y divide-kominka-green/15 border-t border-b border-kominka-green/15">
+        <div className="space-y-3">
+          <SectionKicker>Perguntas</SectionKicker>
+          <RevealTitle className="font-serif text-3xl leading-tight text-kominka-green md:text-4xl lg:text-5xl">
+            Perguntas frequentes
+          </RevealTitle>
+        </div>
+        <div className="mt-8 divide-y divide-kominka-green/15 border-t border-b border-kominka-green/15 md:mt-10">
           {items.map((it, i) => (
             <FAQItem key={i} q={it.q} a={it.a} />
           ))}
@@ -1335,32 +1372,35 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 /* ---------------- CTA FINAL ---------------- */
 function CTAFinal() {
   return (
-    <section className="film-grain vignette relative overflow-hidden bg-kominka-green-deep py-24 text-kominka-cream md:py-32">
+    <section className="film-grain vignette relative overflow-hidden bg-kominka-green-deep py-16 text-kominka-cream md:py-24">
       <CTAGlow />
       <Enso
-        size={420}
+        size={360}
         spin
         className="pointer-events-none absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 text-kominka-sand/10 md:block"
       />
-      <div className="relative z-10 mx-auto max-w-3xl px-5 text-center lg:px-8">
-        <div className="mx-auto h-px w-16 bg-kominka-sand" />
-        <RevealTitle className="mt-8 font-serif text-4xl leading-tight md:text-6xl">
+      <div className="relative z-10 mx-auto max-w-2xl px-5 text-center lg:px-8">
+        <div className="mx-auto h-px w-12 bg-kominka-sand/60" />
+        <RevealTitle className="mt-6 font-serif text-3xl leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
           Venha conhecer o <br className="hidden sm:block" />
           <span className="italic text-kominka-sand">Kominka Dojo</span>
         </RevealTitle>
-        <Reveal delay={200}>
-          <p className="mx-auto mt-6 max-w-xl text-[15px] leading-relaxed text-kominka-cream/80 md:text-base">
+        <Reveal delay={150}>
+          <p className="mx-auto mt-5 max-w-xl text-[15px] leading-relaxed text-kominka-cream/80 md:text-base">
             Agende uma aula experimental gratuita e conheça de perto a prática do Karate Goju-Ryu de
             Okinawa em um ambiente de tradição, disciplina e acolhimento.
           </p>
-          <a
-            href={WA_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-lift mt-10 inline-flex items-center gap-2 rounded-full bg-kominka-cream px-8 py-4 text-sm font-medium text-kominka-green hover:bg-white"
-          >
-            <MessageCircle size={16} /> Agendar pelo WhatsApp
-          </a>
+          <div className="mt-8 flex justify-center">
+            <a
+              href={WA_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shine btn-lift inline-flex items-center gap-2.5 rounded-full bg-kominka-cream px-8 py-4 text-sm font-medium text-kominka-green hover:bg-white shadow-lg"
+            >
+              <MessageCircle size={18} />
+              <span>Agendar pelo WhatsApp</span>
+            </a>
+          </div>
         </Reveal>
       </div>
     </section>
