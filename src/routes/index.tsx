@@ -30,6 +30,7 @@ const dojoFachada = "/photos/dojo-fachada.jpg";
 const dojoMidia = "/photos/dojo-midia.jpg";
 const zazenImg = "/photos/meditacao-zazen.jpg";
 const iogkfImg = "/photos/iogkf.jpg";
+const iogkfLogo = "/photos/iogkf-logo.png";
 const shiatsuImg = "/photos/shiatsu.jpg";
 
 const GALERIA_FOTOS = Array.from(
@@ -48,6 +49,8 @@ const SHIATSU_MSG = encodeURIComponent(
   "Olá! Vim pelo site e gostaria de agendar um atendimento de Shiatsu no Kominka Dojo.",
 );
 const SHIATSU_WA_URL = `https://wa.me/${SHIATSU_NUMBER}?text=${SHIATSU_MSG}`;
+
+const IOGKF_SITE = "https://www.iogkfbrasil.com.br/";
 
 const NAV = [
   { label: "Início", href: "#inicio" },
@@ -473,6 +476,24 @@ function IOGKF() {
               Gasshukus, mantendo viva a tradição do Goju-ryu de Okinawa e promovendo sua prática de
               forma fiel às suas raízes.
             </p>
+
+            <div className="mt-10 flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:gap-8">
+              <img
+                src={iogkfLogo}
+                alt="Logomarca da IOGKF Brasil"
+                className="h-28 w-auto shrink-0 md:h-32"
+                loading="lazy"
+              />
+              <a
+                href={IOGKF_SITE}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 border border-kominka-green bg-kominka-green px-6 py-3 text-xs tracking-[0.2em] uppercase text-kominka-cream transition hover:bg-transparent hover:text-kominka-green"
+              >
+                Saiba mais sobre a IOGKF Brasil
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
