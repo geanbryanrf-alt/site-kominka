@@ -638,7 +638,10 @@ function Horarios() {
       tag: "Meditação",
       titulo: "Zazen",
       idade: "Todas as idades",
-      schedule: ["Sábados, quinzenalmente · 08h00"],
+      schedule: [
+        "Terças-feiras, semanalmente · 07h20",
+        "Sábados, quinzenalmente · 08h00",
+      ],
       valor: "Entrada franca",
       nota: (
         <a
@@ -759,7 +762,7 @@ function Zazen() {
             </div>
             <div className="space-y-4 text-[15px] leading-relaxed text-kominka-ink/80 md:text-base">
               <p>
-                Quinzenalmente, o Kominka Dojo abre suas portas como espaço para meditação, com
+                O Kominka Dojo abre suas portas como espaço para meditação, com
                 entrada franca. A prática segue a linha da meditação Zen Budista, em postura de zazen
                 (sentado), oferecendo um momento de silêncio, presença e autoconhecimento.
               </p>
@@ -768,12 +771,18 @@ function Zazen() {
                 um pequeno texto sobre o assunto e no final é servido um chá.
               </p>
             </div>
-            <div className="flex flex-wrap items-center gap-4 text-sm text-kominka-ink/70 pt-1">
-              <span className="inline-flex items-center gap-2">
-                <Clock size={16} className="text-kominka-green" /> Sábados, quinzenalmente · 08h00
-              </span>
-              <span>·</span>
-              <span className="font-medium text-kominka-green">Entrada franca</span>
+            <div className="space-y-2 pt-1 text-sm text-kominka-ink/70">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                <span className="inline-flex items-center gap-2">
+                  <Clock size={16} className="text-kominka-green" /> Terças-feiras, semanalmente · 07h20
+                </span>
+                <span className="hidden sm:inline">·</span>
+                <span className="inline-flex items-center gap-2">
+                  <Clock size={16} className="text-kominka-green" /> Sábados, quinzenalmente · 08h00
+                </span>
+                <span className="hidden sm:inline">·</span>
+                <span className="font-medium text-kominka-green">Entrada franca</span>
+              </div>
             </div>
             <div className="pt-2">
               <a
